@@ -1,0 +1,1 @@
+Web service por los que los clientes (apps moviles y aparatos RFID) obtienen y manda informacion.
