@@ -186,7 +186,84 @@ namespace WebServiceRest_RFID.Controllers
             using (DBManualConnection Db = new DBManualConnection())
             {
                 List<Log> lstLog = new List<Log>();
-                DataSet ds = Db.executeStoredProcedure("sp_obtenerIntentosDeAccesosNoAutorizados");
+                DataSet ds = Db.executeStoredProcedure("sp_obtenerLogsEntrada");
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    Log log = new Log
+                    {
+                        ID_Usuario = (int)row["ID_Usuario"],
+                        RFID = (int)row["RFID"],
+                        Fecha = (DateTime)row["Fecha"],
+                        ID_Lector = (int)row["ID_Lector"],
+                        Estatus = (int)row["Estatus"]
+                    };
+                    lstLog.Add(log);
+                }
+                return lstLog;
+            }
+        }
+
+        // GET: logs/entradas/1
+        [Route("logs/entradas/{idUsuario:int}")]
+        public IEnumerable<Log> GetLogsEntradas(int idUsuario)
+        {
+            using (DBManualConnection Db = new DBManualConnection())
+            {
+                List<Log> lstLog = new List<Log>();
+                SqlParameter pIdUsuario = new SqlParameter("@idUsuario", idUsuario);
+                DataSet ds = Db.executeStoredProcedure("sp_obtenerLogsEntradaPorID", pIdUsuario);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    Log log = new Log
+                    {
+                        ID_Usuario = (int)row["ID_Usuario"],
+                        RFID = (int)row["RFID"],
+                        Fecha = (DateTime)row["Fecha"],
+                        ID_Lector = (int)row["ID_Lector"],
+                        Estatus = (int)row["Estatus"]
+                    };
+                    lstLog.Add(log);
+                }
+                return lstLog;
+            }
+        }
+
+        // GET: logs/salidas
+        [Route("logs/salidas")]
+        public IEnumerable<Log> GetLogsSalidas()
+        {
+            using (DBManualConnection Db = new DBManualConnection())
+            {
+                List<Log> lstLog = new List<Log>();
+                DataSet ds = Db.executeStoredProcedure("sp_obtenerLogsEntrada");
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    Log log = new Log
+                    {
+                        ID_Usuario = (int)row["ID_Usuario"],
+                        RFID = (int)row["RFID"],
+                        Fecha = (DateTime)row["Fecha"],
+                        ID_Lector = (int)row["ID_Lector"],
+                        Estatus = (int)row["Estatus"]
+                    };
+                    lstLog.Add(log);
+                }
+                return lstLog;
+            }
+        }
+
+        // GET: logs/salidas/1
+        [Route("logs/salidas/{idUsuario:int}")]
+        public IEnumerable<Log> GetLogsSalidas(int idUsuario)
+        {
+            using (DBManualConnection Db = new DBManualConnection())
+            {
+                List<Log> lstLog = new List<Log>();
+                SqlParameter pIdUsuario = new SqlParameter("@idUsuario", idUsuario);
+                DataSet ds = Db.executeStoredProcedure("sp_obtenerLogsSalidaPorID", pIdUsuario);
 
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
@@ -220,6 +297,64 @@ namespace WebServiceRest_RFID.Controllers
                     SqlParameter pEstatus = new SqlParameter("@estatus", log.Estatus);
                     DataSet ds = Db.executeStoredProcedure("sp_insertarLog", pIdUsuario, pRFID, pFecha, pIdLector, pEstatus);
                 }
+            }
+        }
+
+        // POST: usuario/crear
+        [Route("usuario/crear")]
+        public void PostCrearUsuario([FromBody]JObject jsonResult)
+        {
+            Usuario usuario = JsonConvert.DeserializeObject<Usuario>(jsonResult.ToString());
+            using (DBManualConnection Db = new DBManualConnection())
+            {
+                SqlParameter pRFID = new SqlParameter("@RFID", usuario.RFID);
+                SqlParameter pNombre = new SqlParameter("@nombre", usuario.Nombre);
+                DataSet ds = Db.executeStoredProcedure("sp_insertarUsuario", pRFID, pNombre);
+            }
+        }
+
+        // POST: usuario/crear
+        [Route("permiso/crear")]
+        public void PostCrearPermiso([FromBody]JObject jsonResult)
+        {
+            Permiso permiso = JsonConvert.DeserializeObject<Permiso>(jsonResult.ToString());
+            using (DBManualConnection Db = new DBManualConnection())
+            {
+                SqlParameter pIdUsuario = new SqlParameter("@idUsuario", permiso.ID_Usuario);
+                SqlParameter pIdLector = new SqlParameter("@idLector", permiso.ID_Lector);
+                SqlParameter pHoraEntrada = new SqlParameter("@horaEntrada", permiso.Hora_Entrada);
+                SqlParameter pHoraSalida = new SqlParameter("@horaSalida", permiso.Hora_Salida);
+                DataSet ds = Db.executeStoredProcedure("sp_insertarPermiso", pIdUsuario, pIdLector, pHoraEntrada, pHoraSalida);
+            }
+        }
+
+        // PUT: usuario/actualizar/1
+        [Route("usuario/actualizar/{id:int}")]
+        public void PutActualizarUsuario(int id, [FromBody]string value)
+        {
+            Usuario usuario = JsonConvert.DeserializeObject<Usuario>(value.ToString());
+            using (DBManualConnection Db = new DBManualConnection())
+            {
+                SqlParameter pIdUsuario = new SqlParameter("@idUsuario", id);
+                SqlParameter pRFID = new SqlParameter("@RFID", usuario.RFID);
+                SqlParameter pNombre = new SqlParameter("@nombre", usuario.Nombre);
+                DataSet ds = Db.executeStoredProcedure("sp_editarUsuario", pIdUsuario, pRFID, pNombre);
+            }
+        }
+
+        // PUT: permiso/actualizar/1
+        [Route("permiso/actualizar/{id:int}")]
+        public void PutActualizarPermiso(int id, [FromBody]string value)
+        {
+            Permiso permiso = JsonConvert.DeserializeObject<Permiso>(value.ToString());
+            using (DBManualConnection Db = new DBManualConnection())
+            {
+                SqlParameter pIdPermiso = new SqlParameter("@idPermiso", id);
+                SqlParameter pIdUsuario = new SqlParameter("@idUsuario", permiso.ID_Usuario);
+                SqlParameter pIdLector = new SqlParameter("@idLector", permiso.ID_Lector);
+                SqlParameter pHoraEntrada = new SqlParameter("@horaEntrada", permiso.Hora_Entrada);
+                SqlParameter pHoraSalida = new SqlParameter("@horaSalida", permiso.Hora_Salida);
+                DataSet ds = Db.executeStoredProcedure("sp_editarPermiso", pIdUsuario, pIdLector, pHoraEntrada, pHoraSalida);
             }
         }
 
