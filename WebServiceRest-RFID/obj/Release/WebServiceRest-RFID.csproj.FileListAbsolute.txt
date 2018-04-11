@@ -11,8 +11,8 @@ C:\Users\luisd\Documents\Visual Studio 2017\Projects\WebServiceRest-RFID\WebServ
 C:\Users\luisd\Documents\Visual Studio 2017\Projects\WebServiceRest-RFID\WebServiceRest-RFID\bin\System.Net.Http.Formatting.xml
 C:\Users\luisd\Documents\Visual Studio 2017\Projects\WebServiceRest-RFID\WebServiceRest-RFID\bin\System.Web.Http.xml
 C:\Users\luisd\Documents\Visual Studio 2017\Projects\WebServiceRest-RFID\WebServiceRest-RFID\bin\System.Web.Http.WebHost.xml
-C:\Users\luisd\Documents\Visual Studio 2017\Projects\WebServiceRest-RFID\WebServiceRest-RFID\obj\Release\WebServiceRest-RFID.csprojResolveAssemblyReference.cache
 C:\Users\luisd\Documents\Visual Studio 2017\Projects\WebServiceRest-RFID\WebServiceRest-RFID\obj\Release\WebServiceRest-RFID.csproj.CoreCompileInputs.cache
 C:\Users\luisd\Documents\Visual Studio 2017\Projects\WebServiceRest-RFID\WebServiceRest-RFID\obj\Release\WebServiceRest-RFID.csproj.CopyComplete
 C:\Users\luisd\Documents\Visual Studio 2017\Projects\WebServiceRest-RFID\WebServiceRest-RFID\obj\Release\WebServiceRest-RFID.dll
 C:\Users\luisd\Documents\Visual Studio 2017\Projects\WebServiceRest-RFID\WebServiceRest-RFID\obj\Release\WebServiceRest-RFID.pdb
+C:\Users\luisd\Documents\Visual Studio 2017\Projects\WebServiceRest-RFID\WebServiceRest-RFID\obj\Release\WebServiceRest-RFID.csprojResolveAssemblyReference.cache

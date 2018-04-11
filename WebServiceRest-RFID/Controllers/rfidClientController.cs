@@ -165,14 +165,19 @@ namespace WebServiceRest_RFID.Controllers
 
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
-                    Log log = new Log
+                    Log log = new Log();
+                    if (row["ID_Usuario"] != null)
                     {
-                        ID_Usuario = (int)row["ID_Usuario"],
-                        RFID = (int)row["RFID"],
-                        Fecha = (DateTime)row["Fecha"],
-                        ID_Lector = (int)row["ID_Lector"],
-                        Estatus = (int)row["Estatus"]
-                    };
+                        log.ID_Usuario = 0;
+                    } else
+                    {
+                        log.ID_Usuario = (int)row["ID_Usuario"];
+                    }
+                    
+                    log.RFID = (long)row["RFID"];
+                    log.Fecha = (DateTime)row["Fecha"];
+                    log.ID_Lector = (int)row["ID_Lector"];
+                    log.Estatus = (int)row["Estatus"];
                     lstLog.Add(log);
                 }
                 return lstLog;
@@ -190,14 +195,20 @@ namespace WebServiceRest_RFID.Controllers
 
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
-                    Log log = new Log
+                    Log log = new Log();
+                    if (row["ID_Usuario"] != null)
                     {
-                        ID_Usuario = (int)row["ID_Usuario"],
-                        RFID = (int)row["RFID"],
-                        Fecha = (DateTime)row["Fecha"],
-                        ID_Lector = (int)row["ID_Lector"],
-                        Estatus = (int)row["Estatus"]
-                    };
+                        log.ID_Usuario = 0;
+                    }
+                    else
+                    {
+                        log.ID_Usuario = (int)row["ID_Usuario"];
+                    }
+
+                    log.RFID = (long)row["RFID"];
+                    log.Fecha = (DateTime)row["Fecha"];
+                    log.ID_Lector = (int)row["ID_Lector"];
+                    log.Estatus = (int)row["Estatus"];
                     lstLog.Add(log);
                 }
                 return lstLog;
@@ -216,14 +227,20 @@ namespace WebServiceRest_RFID.Controllers
 
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
-                    Log log = new Log
+                    Log log = new Log();
+                    if (row["ID_Usuario"] != null)
                     {
-                        ID_Usuario = (int)row["ID_Usuario"],
-                        RFID = (int)row["RFID"],
-                        Fecha = (DateTime)row["Fecha"],
-                        ID_Lector = (int)row["ID_Lector"],
-                        Estatus = (int)row["Estatus"]
-                    };
+                        log.ID_Usuario = idUsuario;
+                    }
+                    else
+                    {
+                        log.ID_Usuario = (int)row["ID_Usuario"];
+                    }
+
+                    log.RFID = (long)row["RFID"];
+                    log.Fecha = (DateTime)row["Fecha"];
+                    log.ID_Lector = (int)row["ID_Lector"];
+                    log.Estatus = (int)row["Estatus"];
                     lstLog.Add(log);
                 }
                 return lstLog;
@@ -237,18 +254,24 @@ namespace WebServiceRest_RFID.Controllers
             using (DBManualConnection Db = new DBManualConnection())
             {
                 List<Log> lstLog = new List<Log>();
-                DataSet ds = Db.executeStoredProcedure("sp_obtenerLogsEntrada");
+                DataSet ds = Db.executeStoredProcedure("sp_obtenerLogsSalida");
 
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
-                    Log log = new Log
+                    Log log = new Log();
+                    if (row["ID_Usuario"] != null)
                     {
-                        ID_Usuario = (int)row["ID_Usuario"],
-                        RFID = (int)row["RFID"],
-                        Fecha = (DateTime)row["Fecha"],
-                        ID_Lector = (int)row["ID_Lector"],
-                        Estatus = (int)row["Estatus"]
-                    };
+                        log.ID_Usuario = 0;
+                    }
+                    else
+                    {
+                        log.ID_Usuario = (int)row["ID_Usuario"];
+                    }
+
+                    log.RFID = (long)row["RFID"];
+                    log.Fecha = (DateTime)row["Fecha"];
+                    log.ID_Lector = (int)row["ID_Lector"];
+                    log.Estatus = (int)row["Estatus"];
                     lstLog.Add(log);
                 }
                 return lstLog;
@@ -267,14 +290,20 @@ namespace WebServiceRest_RFID.Controllers
 
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
-                    Log log = new Log
+                    Log log = new Log();
+                    if (row["ID_Usuario"] != null)
                     {
-                        ID_Usuario = (int)row["ID_Usuario"],
-                        RFID = (int)row["RFID"],
-                        Fecha = (DateTime)row["Fecha"],
-                        ID_Lector = (int)row["ID_Lector"],
-                        Estatus = (int)row["Estatus"]
-                    };
+                        log.ID_Usuario = idUsuario;
+                    }
+                    else
+                    {
+                        log.ID_Usuario = (int)row["ID_Usuario"];
+                    }
+
+                    log.RFID = (long)row["RFID"];
+                    log.Fecha = (DateTime)row["Fecha"];
+                    log.ID_Lector = (int)row["ID_Lector"];
+                    log.Estatus = (int)row["Estatus"];
                     lstLog.Add(log);
                 }
                 return lstLog;
@@ -315,6 +344,7 @@ namespace WebServiceRest_RFID.Controllers
 
         // POST: usuario/crear
         [Route("permiso/crear")]
+        [HttpPost]
         public void PostCrearPermiso([FromBody]JObject jsonResult)
         {
             Permiso permiso = JsonConvert.DeserializeObject<Permiso>(jsonResult.ToString());
@@ -330,7 +360,7 @@ namespace WebServiceRest_RFID.Controllers
 
         // PUT: usuario/actualizar/1
         [Route("usuario/actualizar/{id:int}")]
-        public void PutActualizarUsuario(int id, [FromBody]string value)
+        public void PutActualizarUsuario(int id, [FromBody]JObject value)
         {
             Usuario usuario = JsonConvert.DeserializeObject<Usuario>(value.ToString());
             using (DBManualConnection Db = new DBManualConnection())
@@ -344,7 +374,7 @@ namespace WebServiceRest_RFID.Controllers
 
         // PUT: permiso/actualizar/1
         [Route("permiso/actualizar/{id:int}")]
-        public void PutActualizarPermiso(int id, [FromBody]string value)
+        public void PutActualizarPermiso(int id, [FromBody]JObject value)
         {
             Permiso permiso = JsonConvert.DeserializeObject<Permiso>(value.ToString());
             using (DBManualConnection Db = new DBManualConnection())
@@ -354,7 +384,7 @@ namespace WebServiceRest_RFID.Controllers
                 SqlParameter pIdLector = new SqlParameter("@idLector", permiso.ID_Lector);
                 SqlParameter pHoraEntrada = new SqlParameter("@horaEntrada", permiso.Hora_Entrada);
                 SqlParameter pHoraSalida = new SqlParameter("@horaSalida", permiso.Hora_Salida);
-                DataSet ds = Db.executeStoredProcedure("sp_editarPermiso", pIdUsuario, pIdLector, pHoraEntrada, pHoraSalida);
+                DataSet ds = Db.executeStoredProcedure("sp_editarPermiso", pIdPermiso, pIdUsuario, pIdLector, pHoraEntrada, pHoraSalida);
             }
         }
 
