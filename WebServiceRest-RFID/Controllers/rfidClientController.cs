@@ -196,7 +196,7 @@ namespace WebServiceRest_RFID.Controllers
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
                     Log log = new Log();
-                    if (row["ID_Usuario"] != null)
+                    if (!row.IsNull("ID_Usuario"))
                     {
                         log.ID_Usuario = (int)row["ID_Usuario"];
                     }
@@ -228,7 +228,7 @@ namespace WebServiceRest_RFID.Controllers
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
                     Log log = new Log();
-                    if (row["ID_Usuario"] != null)
+                    if (!row.IsNull("ID_Usuario"))
                     {
                         log.ID_Usuario = idUsuario;
                     }
@@ -259,7 +259,7 @@ namespace WebServiceRest_RFID.Controllers
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
                     Log log = new Log();
-                    if (row["ID_Usuario"] != null)
+                    if (!row.IsNull("ID_Usuario"))
                     {
                         log.ID_Usuario = (int)row["ID_Usuario"];
                     }
@@ -291,7 +291,7 @@ namespace WebServiceRest_RFID.Controllers
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
                     Log log = new Log();
-                    if (row["ID_Usuario"] != null)
+                    if (!row.IsNull("ID_Usuario"))
                     {
                         log.ID_Usuario = idUsuario;
                     }
