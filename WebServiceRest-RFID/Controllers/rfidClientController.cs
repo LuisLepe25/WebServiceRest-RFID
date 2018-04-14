@@ -198,11 +198,11 @@ namespace WebServiceRest_RFID.Controllers
                     Log log = new Log();
                     if (row["ID_Usuario"] != null)
                     {
-                        log.ID_Usuario = 0;
+                        log.ID_Usuario = (int)row["ID_Usuario"];
                     }
                     else
                     {
-                        log.ID_Usuario = (int)row["ID_Usuario"];
+                        log.ID_Usuario = 0;
                     }
 
                     log.RFID = (long)row["RFID"];
@@ -261,11 +261,11 @@ namespace WebServiceRest_RFID.Controllers
                     Log log = new Log();
                     if (row["ID_Usuario"] != null)
                     {
-                        log.ID_Usuario = 0;
+                        log.ID_Usuario = (int)row["ID_Usuario"];
                     }
                     else
                     {
-                        log.ID_Usuario = (int)row["ID_Usuario"];
+                        log.ID_Usuario = 0;
                     }
 
                     log.RFID = (long)row["RFID"];
@@ -388,14 +388,26 @@ namespace WebServiceRest_RFID.Controllers
             }
         }
 
-        // PUT: api/rfidClient/5
-        public void Put(int id, [FromBody]string value)
+        // DELETE: usuario/eliminar/5
+        [Route("usuario/eliminar/{id:int}")]
+        public void DeleteUsuario(int id)
         {
+            using (DBManualConnection DB = new DBManualConnection())
+            {
+                SqlParameter pIdUsuario = new SqlParameter("@idUsuario", id);
+                DataSet ds = DB.executeStoredProcedure("sp_eliminarUsuario", pIdUsuario);
+            }
         }
 
-        // DELETE: api/rfidClient/5
-        public void Delete(int id)
+        // DELETE: permiso/eliminar/5
+        [Route("permiso/eliminar/{id:int}")]
+        public void DeletePermiso(int id)
         {
+            using (DBManualConnection DB = new DBManualConnection())
+            {
+                SqlParameter pIdPermiso = new SqlParameter("@idPermiso", id);
+                DataSet ds = DB.executeStoredProcedure("sp_eliminarUsuario", pIdPermiso);
+            }
         }
     }
 }
