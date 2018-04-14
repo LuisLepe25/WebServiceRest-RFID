@@ -406,7 +406,7 @@ namespace WebServiceRest_RFID.Controllers
             using (DBManualConnection DB = new DBManualConnection())
             {
                 SqlParameter pIdPermiso = new SqlParameter("@idPermiso", id);
-                DataSet ds = DB.executeStoredProcedure("sp_eliminarUsuario", pIdPermiso);
+                DataSet ds = DB.executeStoredProcedure("sp_eliminarPermiso", pIdPermiso);
             }
         }
     }
